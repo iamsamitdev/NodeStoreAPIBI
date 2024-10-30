@@ -4,12 +4,22 @@ import conection from './utils/db'
 import bodyParser from 'body-parser'
 import authRoutes from './routes/authRoutes'
 import productRoutes from './routes/productRoutes'
+import cors from 'cors'
 
 // Initialize dotenv
 dotenv.config()
 
 // Create Express Instance
 const app:Express = express()
+
+// Use Cors
+app.use(cors(
+    {
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    }
+))
 
 // Parse incoming JSON requests
 app.use(bodyParser.json())
@@ -35,8 +45,8 @@ app.get('/testdb', (req:Request, res:Response) => {
     })
 })
 
-// Start Server on port 3000
-const port:string | number = process.env.PORT || 3000
+// Start Server on port 4000
+const port:string | number = process.env.PORT || 4000
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
